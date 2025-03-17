@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Random Emoji Picker - Instantly Generate Fun & Unique Emojis Online</title>
+    <meta name="description" content="Pick a random emoji with just one click! Our free Random Emoji Generator helps you discover fun and unique emojis for your social posts, chats, and creative projects. No ads, no hassle!">
+    <meta name="keywords" content="random emoji picker, emoji generator, free emoji generator, random emoji spinner, emoji tool online">
+    <meta property="og:title" content="🎉 Random Emoji Picker">
+    <meta property="og:description" content="Instantly generate random emojis for your social media and creative projects. No ads, 100% free!">
+    <!-- 更新 Open Graph meta 标签 -->
+    <meta property="og:image" content="https://www.randomemojipicker.com/emoji-preview.png">
+    <meta property="og:url" content="https://www.randomemojipicker.com">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .seo-headers {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="seo-headers">
+        <h1>Random Emoji Picker - Free Online Emoji Generator Tool</h1>
+        <h2>🎭 Get a Random Emoji with One Click</h2>
+        <h3>🚀 Free Emoji Generator for Social Media, Chat & Fun Projects</h3>
+        <h3>🔥 No Ads, No Signup Required!</h3>
+    </div>
+    
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">🎭</div>
+                <h1>Random Emoji</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" data-i18n="nav.home" class="active">首页</a></li>
+                    <li><a href="#categories" data-i18n="nav.categories">分类</a></li>
+                    <li><a href="#about" data-i18n="nav.about">关于</a></li>
+                    <li>
+                        <div class="language-selector">
+                            <select id="language-select">
+                                <option value="zh">中文</option>
+                                <option value="en" selected>English</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section class="hero">
+        <div class="container">
+            <h2 data-i18n="hero.title">随机表情生成器</h2>
+            <p data-i18n="hero.subtitle">为您的消息和社交媒体添加趣味</p>
+            
+            <div class="emoji-display">
+                <div id="emoji-result">😀</div>
+                <p id="emoji-name">笑脸</p>
+            </div>
+            
+            <div class="buttons">
+                <button id="generate-btn" class="btn primary" data-i18n="buttons.generate">生成随机表情</button>
+                <button id="copy-btn" class="btn secondary" data-i18n="buttons.copy">复制</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分类区 -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 data-i18n="categories.title">表情分类</h2>
+            
+            <div class="search-box">
+                <input type="text" id="emoji-search" data-i18n-placeholder="search.placeholder" placeholder="搜索表情...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="category-buttons">
+                <button class="category-btn active" data-category="all" data-i18n="categories.all">全部</button>
+                <button class="category-btn" data-category="smileys" data-i18n="categories.smileys">笑脸与情感</button>
+                <button class="category-btn" data-category="people" data-i18n="categories.people">人物</button>
+                <button class="category-btn" data-category="animals" data-i18n="categories.animals">动物与自然</button>
+                <button class="category-btn" data-category="food" data-i18n="categories.food">食物与饮料</button>
+                <button class="category-btn" data-category="travel" data-i18n="categories.travel">旅行与地点</button>
+                <button class="category-btn" data-category="activities" data-i18n="categories.activities">活动</button>
+                <button class="category-btn" data-category="objects" data-i18n="categories.objects">物品</button>
+                <button class="category-btn" data-category="symbols" data-i18n="categories.symbols">符号</button>
+                <button class="category-btn" data-category="flags" data-i18n="categories.flags">旗帜</button>
+            </div>
+            
+            <div id="emoji-grid" class="emoji-grid">
+                <!-- 表情将通过 JavaScript 动态加载 -->
+            </div>
+            
+            <div id="pagination" class="pagination">
+                <!-- 分页将通过 JavaScript 动态加载 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于区 -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 data-i18n="about.title">关于 Random Emoji Generator</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-i18n="about.description">Random Emoji Generator 是一个免费的在线工具，帮助您快速找到和使用表情符号。无论是用于社交媒体、短信还是电子邮件，我们都能让您轻松找到完美的表情。</p>
+                    
+                    <h3 data-i18n="about.features">功能特点</h3>
+                    <ul>
+                        <li data-i18n="about.feature1">随机生成表情符号</li>
+                        <li data-i18n="about.feature2">按类别浏览</li>
+                        <li data-i18n="about.feature3">搜索功能</li>
+                        <li data-i18n="about.feature4">一键复制</li>
+                        <li data-i18n="about.feature5">多语言支持</li>
+                    </ul>
+                </div>
+                
+                <div class="emoji-cloud">
+                    <!-- 表情云将通过 JavaScript 动态加载 -->
+                </div>
+            </div>
+            
+            <div class="faq">
+                <h3 data-i18n="faq.title">常见问题</h3>
+                
+                <div class="accordion">
+                    <!-- 添加前三个问题 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q1">如何使用随机表情生成器？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a1">只需点击"生成随机表情"按钮，系统会立即为您生成一个随机表情。您也可以通过分类浏览或搜索特定表情。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q2">我可以在任何地方使用这些表情吗？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a2">是的，您可以在任何支持 Unicode 表情符号的平台上使用这些表情，包括社交媒体、短信、电子邮件等。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q3">为什么有些表情在不同设备上显示不同？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a3">表情符号的显示取决于您的设备和操作系统。不同平台（如 Apple、Google、Microsoft 等）对同一表情符号有不同的设计风格。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 其他FAQ项继续保持不变 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q4">如何为社交媒体帖子选择完美的表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a4">使用我们的随机表情生成器，您可以快速找到适合您社交媒体帖子的表情。通过分类浏览或随机生成功能，为您的内容增添趣味性和个性化。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q5">如何在创意写作中使用表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a5">表情可以让您的创意写作更加生动有趣。使用随机生成功能可以激发灵感，或者通过分类浏览找到最适合您故事情境的表情。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q6">如何为Instagram标题选择合适的表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a6">为Instagram选择表情时，可以使用我们的分类功能找到与您照片主题相匹配的表情，或使用随机功能为您的标题增添意外惊喜。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q7">如何在派对游戏中使用表情生成器？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a7">我们的随机表情生成器非常适合派对游戏！可以用于表情猜谜、情绪模仿游戏，或者创造有趣的即兴故事。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q8">这个工具适合孩子使用吗？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a8">是的！我们的表情生成器对孩子很友好，可以帮助他们学习表达情感，增进沟通能力，还能在学习过程中获得乐趣。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q9">如何使用表情进行创意头脑风暴？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a9">随机表情可以激发创意思维！每次生成新表情都可能带来新的灵感，帮助您突破思维定式，产生新想法。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q10">如何为TikTok视频选择表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a10">使用我们的工具可以快速为您的TikTok视频找到有趣的表情。可以用于视频标题、评论互动，或作为创意灵感来源。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Random Emoji</h2>
+                    <p data-i18n="footer.tagline">为您的内容增添表情</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 data-i18n="footer.links">快速链接</h3>
+                    <ul>
+                        <li><a href="#" data-i18n="footer.home">首页</a></li>
+                        <li><a href="#categories" data-i18n="footer.categories">分类</a></li>
+                        <li><a href="#about" data-i18n="footer.about">关于</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h3 data-i18n="footer.shareOn">分享至你的社交媒体</h3>
+                    <!-- 更新社交分享链接 -->
+                    <div class="social-icons">
+                        <a href="https://twitter.com/intent/tweet?text=随机表情生成器&url=https://www.randomemojipicker.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.randomemojipicker.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2023</span> Random Emoji Generator. <span data-i18n="footer.rights">保留所有权利</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 滚动到顶部按钮 -->
+    <button class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript 文件 -->
+    <script src="scripts/emoji-data.js"></script>
+    <script src="scripts/i18n.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+        // 测试脚本
+        // 测试脚本
+        console.log('测试脚本已加载');
+        console.log('emojiData是否存在:', typeof emojiData !== 'undefined');
+        console.log('allEmojis长度:', allEmojis.length);
+        
+        // 直接添加点击事件测试
+        document.getElementById('generate-btn').onclick = function() {
+            console.log('按钮被点击');
+            if (allEmojis.length > 0) {
+                const randomIndex = Math.floor(Math.random() * allEmojis.length);
+                const randomEmoji = allEmojis[randomIndex];
+                document.getElementById('emoji-result').textContent = randomEmoji.emoji;
+                
+                // 根据当前语言显示名称
+                if (currentLanguage === 'en') {
+                    // 英文名称通常是 keywords 的第一个
+                    document.getElementById('emoji-name').textContent = randomEmoji.keywords[0].charAt(0).toUpperCase() + randomEmoji.keywords[0].slice(1);
+                } else {
+                    document.getElementById('emoji-name').textContent = randomEmoji.name;
+                }
+            } else {
+                alert('表情数据未加载，请检查控制台错误');
+            }
+        };
+    </script>
+</body>
+</html>
