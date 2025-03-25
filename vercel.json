@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "name": "random-emoji-picker",
   "builds": [
-    {
-      "src": "**/*",
-      "use": "@vercel/static"
-    }
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "styles/**", "use": "@vercel/static" },
+    { "src": "scripts/**", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+    { "src": "/(.*)", "dest": "/$1" }
+  ],
+  "github": {
+    "silent": true
+  }
 }
