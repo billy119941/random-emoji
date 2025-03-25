@@ -7,6 +7,41 @@ let allEmojis = [];
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
+    // 移除右下角的 Twemoji 测试窗口
+    const testDialog = document.querySelector('.twemoji-test-dialog');
+    if (testDialog) {
+        testDialog.remove();
+    }
+    
+    // 移除可能的关闭测试按钮 - 使用有效的选择器
+    const closeTestBtn = document.querySelector('.close-test-btn');
+    if (closeTestBtn) {
+        const testContainer = closeTestBtn.closest('.test-container, .dialog-container');
+        if (testContainer) {
+            testContainer.remove();
+        } else {
+            closeTestBtn.remove();
+        }
+    }
+    
+    // 查找包含"关闭测试"文本的按钮
+    document.querySelectorAll('button').forEach(btn => {
+        if (btn.textContent.includes('关闭测试')) {
+            const testContainer = btn.closest('.test-container, .dialog-container');
+            if (testContainer) {
+                testContainer.remove();
+            } else {
+                btn.remove();
+            }
+        }
+    });
+    
+    // 移除右下角的测试面板
+    const testPanel = document.querySelector('.emoji-test-panel, .test-panel');
+    if (testPanel) {
+        testPanel.remove();
+    }
+    
     // 初始化语言
     initLanguage();
     
@@ -28,6 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化滚动到顶部按钮
     initScrollToTop();
     
+    // 初始化表情云
+    initEmojiCloud();
+    
     // 设置当前年份
     document.getElementById('current-year').textContent = new Date().getFullYear();
 });
@@ -36,41 +74,21 @@ document.addEventListener('DOMContentLoaded', function() {
 function combineEmojiData() {
     allEmojis = [];
     
-    // 检查emojiData是否存在
+    // 检查并等待 emojiData 加载
     if (typeof emojiData === 'undefined') {
-        console.error('emojiData未定义，请检查emoji-data.js文件是否正确加载');
-        // 添加测试数据，以防emojiData未加载
-        const testData = {
-            test: [
-                { emoji: "😀", name: "笑脸", keywords: ["smile", "happy", "joy", "笑", "高兴"] },
-                { emoji: "😃", name: "大笑", keywords: ["laugh", "happy", "joy", "大笑", "开心"] }
-            ]
-        };
-        
-        // 使用测试数据
-        for (const category in testData) {
-            testData[category].forEach(emoji => {
-                emoji.category = category;
-                allEmojis.push(emoji);
-            });
-        }
-        
-        console.log('使用测试数据，共', allEmojis.length, '个表情');
+        setTimeout(combineEmojiData, 100);
         return;
     }
     
     // 遍历所有类别
     for (const category in emojiData) {
         emojiData[category].forEach(emoji => {
-            // 添加类别信息
             emoji.category = category;
             allEmojis.push(emoji);
         });
     }
     
-    // 初始化过滤后的表情
     filteredEmojis = [...allEmojis];
-    console.log('表情数据已加载，共', allEmojis.length, '个表情');
 }
 
 // 初始化表情网格
@@ -90,7 +108,16 @@ function initEventListeners() {
     // 生成随机表情按钮
     const generateBtn = document.getElementById('generate-btn');
     if (generateBtn) {
-        generateBtn.addEventListener('click', generateRandomEmoji);
+        // 移除所有现有的点击事件监听器
+        const newBtn = generateBtn.cloneNode(true);
+        generateBtn.parentNode.replaceChild(newBtn, generateBtn);
+        
+        // 添加新的点击事件监听器
+        newBtn.addEventListener('click', function(event) {
+            generateRandomEmoji();
+            // 阻止事件冒泡，防止其他监听器被触发
+            event.stopPropagation();
+        });
     }
     
     // 复制按钮
@@ -156,7 +183,6 @@ function initEventListeners() {
 }
 
 // 生成随机表情
-// 生成随机表情
 function generateRandomEmoji() {
     // 获取随机表情
     const randomIndex = Math.floor(Math.random() * allEmojis.length);
@@ -167,7 +193,18 @@ function generateRandomEmoji() {
     const emojiName = document.getElementById('emoji-name');
     
     if (emojiResult && emojiName) {
+        // 清空元素内容后再设置新的表情
+        emojiResult.innerHTML = '';
         emojiResult.textContent = randomEmoji.emoji;
+        
+        // 使用 Twemoji 解析并替换为图片
+        if (typeof twemoji === 'object') {
+            twemoji.parse(emojiResult, {
+                folder: 'svg',
+                ext: '.svg',
+                base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/'
+            });
+        }
         
         // 根据当前语言显示名称
         if (currentLanguage === 'en') {
@@ -243,7 +280,6 @@ function filterEmojis() {
     });
 }
 
-// 渲染表情网格
 // 渲染表情网格
 function renderEmojiGrid() {
     const emojiGrid = document.getElementById('emoji-grid');
@@ -474,39 +510,18 @@ function showNotification(message, type) {
 }
 
 // 初始化表情云
-// 初始化表情云
 function initEmojiCloud() {
     const emojiCloud = document.querySelector('.emoji-cloud');
     
-    if (emojiCloud) {
-        // 清空云
+    if (emojiCloud && allEmojis.length > 0) {
         emojiCloud.innerHTML = '';
         
-        // 检查 allEmojis 是否有数据
-        if (allEmojis.length === 0) {
-            console.error('表情数据未加载，无法初始化表情云');
-            return;
-        }
-        
-        // 随机选择12个表情
-        const randomEmojis = [];
-        const totalEmojis = allEmojis.length;
-        
-        for (let i = 0; i < 12; i++) {
-            const randomIndex = Math.floor(Math.random() * totalEmojis);
-            randomEmojis.push(allEmojis[randomIndex].emoji);
-        }
-        
-        // 添加到云
-        randomEmojis.forEach((emoji, index) => {
+        // 随机选择表情并添加到云
+        Array.from({ length: 12 }, () => {
+            const randomEmoji = allEmojis[Math.floor(Math.random() * allEmojis.length)].emoji;
             const span = document.createElement('span');
-            span.textContent = emoji;
+            span.textContent = randomEmoji;
             emojiCloud.appendChild(span);
         });
     }
 }
-
-// 在页面加载时初始化表情云
-document.addEventListener('DOMContentLoaded', function() {
-    initEmojiCloud();
-});

@@ -1,13 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="English">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>随机表情生成器 | Random Emoji Generator</title>
+    <title>🎉 Random Emoji Picker - Instantly Generate Fun & Unique Emojis Online</title>
+    <meta name="description" content="Pick a random emoji with just one click! Our free Random Emoji Generator helps you discover fun and unique emojis for your social posts, chats, and creative projects. No ads, no hassle!">
+    <meta name="keywords" content="random emoji picker, emoji generator, free emoji generator, random emoji spinner, emoji tool online">
+    <meta property="og:title" content="🎉 Random Emoji Picker">
+    <meta property="og:description" content="Instantly generate random emojis for your social media and creative projects. No ads, 100% free!">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02R2C33JZY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-02R2C33JZY');
+    </script>
+    <!-- 更新 Open Graph meta 标签 -->
+    <meta property="og:image" content="https://www.randomemojipicker.com/emoji-preview.png">
+    <meta property="og:url" content="https://www.randomemojipicker.com">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 引入 Twemoji 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script>
+    <style>
+        .seo-headers {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        
+        /* Twemoji 样式调整 */
+        img.emoji {
+            height: 1em;
+            width: 1em;
+            margin: 0 .05em 0 .1em;
+            vertical-align: -0.1em;
+        }
+        
+        #emoji-result img.emoji {
+            height: 6rem;
+            width: 6rem;
+        }
+        
+        /* 调整 emoji 显示大小和样式 */
+        #emoji-result {
+            font-size: 6rem;
+            line-height: 1.2;
+        }
+    </style>
 </head>
 <body>
+    <div class="seo-headers">
+        <h1>Random Emoji Picker - Free Online Emoji Generator Tool</h1>
+        <h2>🎭 Get a Random Emoji with One Click</h2>
+        <h3>🚀 Free Emoji Generator for Social Media, Chat & Fun Projects</h3>
+        <h3>🔥 No Ads, No Signup Required!</h3>
+    </div>
+    
     <!-- 头部 -->
     <header class="header">
         <div class="container">
@@ -112,6 +167,7 @@
                 <h3 data-i18n="faq.title">常见问题</h3>
                 
                 <div class="accordion">
+                    <!-- 添加前三个问题 -->
                     <div class="accordion-item">
                         <div class="accordion-header" data-i18n="faq.q1">如何使用随机表情生成器？</div>
                         <div class="accordion-content">
@@ -130,6 +186,56 @@
                         <div class="accordion-header" data-i18n="faq.q3">为什么有些表情在不同设备上显示不同？</div>
                         <div class="accordion-content">
                             <p data-i18n="faq.a3">表情符号的显示取决于您的设备和操作系统。不同平台（如 Apple、Google、Microsoft 等）对同一表情符号有不同的设计风格。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 其他FAQ项继续保持不变 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q4">如何为社交媒体帖子选择完美的表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a4">使用我们的随机表情生成器，您可以快速找到适合您社交媒体帖子的表情。通过分类浏览或随机生成功能，为您的内容增添趣味性和个性化。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q5">如何在创意写作中使用表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a5">表情可以让您的创意写作更加生动有趣。使用随机生成功能可以激发灵感，或者通过分类浏览找到最适合您故事情境的表情。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q6">如何为Instagram标题选择合适的表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a6">为Instagram选择表情时，可以使用我们的分类功能找到与您照片主题相匹配的表情，或使用随机功能为您的标题增添意外惊喜。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q7">如何在派对游戏中使用表情生成器？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a7">我们的随机表情生成器非常适合派对游戏！可以用于表情猜谜、情绪模仿游戏，或者创造有趣的即兴故事。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q8">这个工具适合孩子使用吗？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a8">是的！我们的表情生成器对孩子很友好，可以帮助他们学习表达情感，增进沟通能力，还能在学习过程中获得乐趣。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q9">如何使用表情进行创意头脑风暴？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a9">随机表情可以激发创意思维！每次生成新表情都可能带来新的灵感，帮助您突破思维定式，产生新想法。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" data-i18n="faq.q10">如何为TikTok视频选择表情？</div>
+                        <div class="accordion-content">
+                            <p data-i18n="faq.a10">使用我们的工具可以快速为您的TikTok视频找到有趣的表情。可以用于视频标题、评论互动，或作为创意灵感来源。</p>
                         </div>
                     </div>
                 </div>
@@ -157,9 +263,10 @@
                 
                 <div class="footer-social">
                     <h3 data-i18n="footer.shareOn">分享至你的社交媒体</h3>
+                    <!-- 更新社交分享链接 -->
                     <div class="social-icons">
-                        <a href="https://twitter.com/intent/tweet?text=随机表情生成器&url=https://randomemoji.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://randomemoji.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=随机表情生成器&url=https://www.randomemojipicker.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.randomemojipicker.com" target="_blank"><i class="fab fa-facebook"></i></a>
                         <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
@@ -182,31 +289,42 @@
     <script src="scripts/i18n.js"></script>
     <script src="scripts/main.js"></script>
     <script>
-        // 测试脚本
-        // 测试脚本
-        console.log('测试脚本已加载');
-        console.log('emojiData是否存在:', typeof emojiData !== 'undefined');
-        console.log('allEmojis长度:', allEmojis.length);
+        // 使用 Twemoji 显示 emoji
+        function displayEmoji(emoji, elementId) {
+            const element = document.getElementById(elementId);
+            
+            // 清空元素内容后再设置新的表情
+            element.innerHTML = '';
+            element.textContent = emoji;
+            
+            // 使用 Twemoji 解析并替换为图片
+            twemoji.parse(element, {
+                folder: 'svg',
+                ext: '.svg',
+                base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/'
+            });
+        }
         
-        // 直接添加点击事件测试
-        document.getElementById('generate-btn').onclick = function() {
-            console.log('按钮被点击');
-            if (allEmojis.length > 0) {
-                const randomIndex = Math.floor(Math.random() * allEmojis.length);
-                const randomEmoji = allEmojis[randomIndex];
-                document.getElementById('emoji-result').textContent = randomEmoji.emoji;
-                
-                // 根据当前语言显示名称
-                if (currentLanguage === 'en') {
-                    // 英文名称通常是 keywords 的第一个
-                    document.getElementById('emoji-name').textContent = randomEmoji.keywords[0].charAt(0).toUpperCase() + randomEmoji.keywords[0].slice(1);
-                } else {
-                    document.getElementById('emoji-name').textContent = randomEmoji.name;
-                }
-            } else {
-                alert('表情数据未加载，请检查控制台错误');
+        // 页面加载完成后执行
+        window.addEventListener('load', function() {
+            // 检查 Twemoji 是否成功加载
+            if (typeof twemoji === 'object') {
+                console.log('✅ Twemoji 库已成功加载');
             }
-        };
+            
+            // 初始化页面上已有的 emoji
+            const emojiResult = document.getElementById('emoji-result');
+            if (emojiResult && emojiResult.textContent) {
+                displayEmoji(emojiResult.textContent, 'emoji-result');
+            }
+            
+            // 解析页面上所有的 emoji
+            twemoji.parse(document.body, {
+                folder: 'svg',
+                ext: '.svg',
+                base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/'
+            });
+        });
     </script>
 </body>
 </html>
