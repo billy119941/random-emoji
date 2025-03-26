@@ -7,9 +7,15 @@
     { "src": "images/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/(.*)", "dest": "/$1" },
+    { "src": "/robots.txt", "dest": "/robots.txt" },
+    { "src": "/sitemap.xml", "dest": "/sitemap.xml" }
   ],
   "github": {
     "silent": true
-  }
+  },
+  "rewrites": [
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
+  ]
 }
