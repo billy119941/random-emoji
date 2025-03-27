@@ -284,10 +284,11 @@ ul {
 }
 
 .emoji-display {
-    margin: 40px 0;
     padding: 30px;
-    background-color: white;
     border-radius: 20px;
+    margin: 40px auto;
+    max-width: 800px;
+    background-color: white;
     box-shadow: 0 10px 30px var(--shadow-color);
     display: inline-block;
 }
@@ -295,19 +296,21 @@ ul {
 /* emoji容器统一大小样式 */
 .emoji-result {
     font-size: 3.5rem;
-    width: 5rem;
-    height: 5rem;
+    width: 6.5rem;
+    height: 6.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 8px;
+    overflow: hidden;
 }
 
 /* Twemoji特定样式 */
 .emoji-result img.emoji {
-    width: 3.5rem !important;
-    height: 3.5rem !important;
+    width: 4.5rem !important;
+    height: 4.5rem !important;
     margin: 0 !important;
+    object-fit: contain;
 }
 
 /* 标记Twemoji来源的emoji名称样式 */
@@ -318,9 +321,34 @@ ul {
 
 /* 确保emoji项目容器也保持一致 */
 .emoji-item-display {
-    width: 120px;        /* 固定项目容器宽度 */
-    height: 150px;       /* 固定项目容器高度 */
-    padding: 15px 10px;  /* 统一内边距 */
+    width: 140px;
+    height: 170px;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 8px;
+}
+
+/* 确保emoji项目容器内部的间距也更合理 */
+.emoji-item-display .emoji-result {
+    margin-bottom: 12px;
+}
+
+/* 确保国旗emoji完全显示 */
+[data-category="flags"],
+.emoji-result[data-category="flags"],
+.emoji-result img.emoji[src*="flag"] {
+    max-width: 100%;
+    max-height: 100%;
+    transform: scale(0.9);
+}
+
+/* 添加一点额外的空间到emoji容器 */
+.emoji-container {
+    padding: 15px;
     box-sizing: border-box;
 }
 
@@ -342,429 +370,156 @@ ul {
     background-color: var(--light-background);
 }
 
-.section-title {
-    text-align: center;
-    font-size: 36px;
-    margin-bottom: 40px;
-    color: var(--primary-color);
+/* 语言选择器样式 */
+.language-selector {
+    position: relative;
+    margin-left: 15px;
 }
 
-.category-filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-.category-btn {
-    padding: 8px 16px;
-    border-radius: 50px;
-    background-color: white;
-    border: 1px solid var(--border-color);
+#language-select {
+    appearance: none;
+    background-color: rgba(111, 101, 255, 0.1);
+    border: 2px solid rgba(111, 101, 255, 0.3);
+    border-radius: 8px;
+    color: #333;
     cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
     font-weight: 500;
-}
-
-.category-btn:hover, .category-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.search-container {
-    display: flex;
-    max-width: 500px;
-    margin: 0 auto 30px;
-}
-
-#emoji-search {
-    flex: 1;
-    padding: 12px 20px;
-    border: 1px solid var(--border-color);
-    border-radius: 50px 0 0 50px;
-    font-size: 16px;
+    padding: 8px 35px 8px 15px;
+    transition: all 0.3s ease;
     outline: none;
 }
 
-#search-btn {
-    padding: 12px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 0 50px 50px 0;
-    cursor: pointer;
+#language-select:hover {
+    background-color: rgba(111, 101, 255, 0.2);
+    border-color: rgba(111, 101, 255, 0.5);
 }
 
-.emoji-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
+#language-select:focus {
+    box-shadow: 0 0 0 3px rgba(111, 101, 255, 0.25);
 }
 
-.emoji-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
+.language-selector::after {
+    content: '\f0d7';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #6f65ff;
+}
+
+/* 下拉选项样式 */
+#language-select option {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px var(--shadow-color);
+    color: #333;
+    padding: 10px;
+}
+
+/* 数量选择器样式 - 简化版 */
+.count-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.count-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.emoji-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px var(--shadow-color);
+.count-option input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
 }
 
-.emoji-item span {
-    font-size: 32px;
-    margin-bottom: 8px;
+.count-option span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
+    transition: color 0.3s ease;
 }
 
-.emoji-item p {
-    font-size: 12px;
-    text-align: center;
-    color: var(--light-text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.count-option:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* 简化选中状态样式 */
+.count-option input:checked ~ span {
+    color: white;
+}
+
+/* 直接修改父元素背景色 */
+.count-option input:checked {
+    background-color: #6c5ce7;
+}
+
+/* 关键修改: 直接在label上应用样式 */
+.count-option:has(input:checked) {
+    background-color: #6c5ce7;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4);
+}
+
+/* 兼容性备选方案 */
+input[type="radio"]:checked + span {
+    color: white;
+}
+
+input[type="radio"]:checked + span::before {
+    display: none;
+}
+
+/* 确保单选框选中时整个父元素变色的JavaScript备选样式 */
+.count-option.selected {
+    background-color: #6c5ce7 !important;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4) !important;
+}
+
+.count-option.selected span {
+    color: white !important;
+}
+
+/* 添加加载动画样式 */
+.emoji-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
     width: 100%;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.pagination button {
+.emoji-loading:after {
+    content: "";
     width: 40px;
     height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #6c5ce7;
     border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background-color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    animation: spin 1s linear infinite;
 }
 
-.pagination button.active, .pagination button:hover {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* 关于区域样式 */
-.about {
-    padding: 80px 0;
-}
-
-.about-content {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-}
-
-.about-text {
-    flex: 1;
-}
-
-.about-text p {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: var(--light-text);
-}
-
-.about-text h3 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: var(--primary-color);
-}
-
-.about-text ul {
-    margin-left: 20px;
-}
-
-.about-text li {
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 25px;
-}
-
-.about-text li:before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--success-color);
-    font-weight: bold;
-}
-
-.about-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.emoji-cloud {
-    position: relative;
-    width: 300px;
-    height: 300px;
-}
-
-.emoji-cloud span {
-    position: absolute;
-    font-size: 40px;
-    animation: float 6s infinite ease-in-out;
-}
-
-.emoji-cloud span:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
-.emoji-cloud span:nth-child(2) { top: 60%; left: 80%; animation-delay: 0.5s; }
-.emoji-cloud span:nth-child(3) { top: 80%; left: 40%; animation-delay: 1s; }
-.emoji-cloud span:nth-child(4) { top: 10%; left: 60%; animation-delay: 1.5s; }
-.emoji-cloud span:nth-child(5) { top: 30%; left: 90%; animation-delay: 2s; }
-.emoji-cloud span:nth-child(6) { top: 90%; left: 10%; animation-delay: 2.5s; }
-.emoji-cloud span:nth-child(7) { top: 50%; left: 50%; animation-delay: 3s; }
-.emoji-cloud span:nth-child(8) { top: 70%; left: 70%; animation-delay: 3.5s; }
-.emoji-cloud span:nth-child(9) { top: 40%; left: 30%; animation-delay: 4s; }
-.emoji-cloud span:nth-child(10) { top: 20%; left: 50%; animation-delay: 4.5s; }
-.emoji-cloud span:nth-child(11) { top: 60%; left: 20%; animation-delay: 5s; }
-.emoji-cloud span:nth-child(12) { top: 80%; left: 80%; animation-delay: 5.5s; }
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-/* FAQ 区域样式 */
-.faq {
-    padding: 80px 0;
-    background-color: var(--light-background);
-}
-
-.accordion {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.accordion-item {
-    margin-bottom: 15px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px var(--shadow-color);
-}
-
-.accordion-header {
-    padding: 20px;
-    background-color: white;
-    font-weight: 600;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.accordion-header:after {
-    content: '+';
-    position: absolute;
-    right: 20px;
-    transition: all 0.3s ease;
-}
-
-.accordion-item.active .accordion-header:after {
-    transform: rotate(45deg);
-}
-
-.accordion-content {
-    padding: 0 20px;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background-color: white;
-}
-
-.accordion-item.active .accordion-content {
-    padding: 20px;
-    max-height: 1000px;
-}
-
-/* 页脚样式 */
-.footer {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 60px 0 20px;
-}
-
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 40px;
-}
-
-.footer-logo {
-    flex: 1;
-    min-width: 250px;
-    margin-bottom: 20px;
-}
-
-.footer-logo h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-links, .footer-social {
-    flex: 1;
-    min-width: 200px;
-    margin-bottom: 20px;
-}
-
-.footer h4 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.footer h4:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background-color: var(--secondary-color);
-}
-
-.footer-links ul li {
-    margin-bottom: 10px;
-}
-
-.footer-links a {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.footer-links a:hover {
-    color: white;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-}
-
-.social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.social-icons a:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-5px);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* 响应式设计 */
-@media (max-width: 992px) {
-    .about-content {
-        flex-direction: column;
-    }
-    
-    .emoji-cloud {
-        margin-top: 40px;
-    }
-    
-    .hero h2 {
-        font-size: 36px;
-    }
-    
-    #emoji-result {
-        font-size: 80px;
-    }
-}
-
-@media (max-width: 768px) {
-    .header .container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .nav ul {
-        margin-top: 15px;
-    }
-    
-    .hero {
-        padding: 60px 0;
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .btn {
-        width: 100%;
-    }
-    
-    .category-filters {
-        gap: 8px;
-    }
-    
-    .category-btn {
-        font-size: 14px;
-        padding: 6px 12px;
-    }
-    
-    .emoji-grid {
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    }
-}
-
-@media (max-width: 576px) {
-    .section-title {
-        font-size: 28px;
-    }
-    
-    .hero h2 {
-        font-size: 32px;
-    }
-    
-    .hero p {
-        font-size: 16px;
-    }
-    
-    #emoji-result {
-        font-size: 70px;
-    }
-    
-    .emoji-grid {
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    }
-    
-    .about-text p, .about-text li {
-        font-size: 16px;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-    }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* 动画效果 */
@@ -938,170 +693,137 @@ ul {
     }
 }
 
-/* 确保国旗emoji正确显示 */
-.emoji-item .emoji {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 3rem;
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .emoji-cloud {
+        margin-top: 40px;
+    }
+    
+    .hero h2 {
+        font-size: 36px;
+    }
+    
+    #emoji-result {
+        font-size: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav ul {
+        margin-top: 15px;
+    }
+    
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .category-filters {
+        gap: 8px;
+    }
+    
+    .category-btn {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    
+    .emoji-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    }
+    
+    .emoji-container {
+        gap: 10px;
+    }
+    
+    .emoji-item-display {
+        padding: 10px 15px;
+        min-width: 100px;
+        height: 150px;
+    }
+    
+    .emoji-result {
+        font-size: 2.8rem;
+        width: 5rem;
+        height: 5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .hero h2 {
+        font-size: 32px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    #emoji-result {
+        font-size: 70px;
+    }
+    
+    .emoji-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    }
+    
+    .about-text p, .about-text li {
+        font-size: 16px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .emoji-container {
+        gap: 8px;
+    }
+    
+    .emoji-item-display {
+        padding: 8px 12px;
+        min-width: 90px;
+        height: 130px;
+    }
+    
+    .emoji-result {
+        font-size: 2.5rem;
+        width: 4rem;
+        height: 4rem;
+    }
+    
+    .emoji-name {
+        font-size: 0.8rem;
+    }
 }
 
 /* 特别处理国旗emoji */
-[data-category="flags"] .emoji {
-    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
-    letter-spacing: normal;
-}
-
-/* 语言选择器样式 */
-.language-selector {
-    position: relative;
-    margin-left: 15px;
-}
-
-#language-select {
-    appearance: none;
-    background-color: rgba(111, 101, 255, 0.1);
-    border: 2px solid rgba(111, 101, 255, 0.3);
-    border-radius: 8px;
-    color: #333;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 8px 35px 8px 15px;
-    transition: all 0.3s ease;
-    outline: none;
-}
-
-#language-select:hover {
-    background-color: rgba(111, 101, 255, 0.2);
-    border-color: rgba(111, 101, 255, 0.5);
-}
-
-#language-select:focus {
-    box-shadow: 0 0 0 3px rgba(111, 101, 255, 0.25);
-}
-
-.language-selector::after {
-    content: '\f0d7';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #6f65ff;
-}
-
-/* 下拉选项样式 */
-#language-select option {
-    background-color: white;
-    color: #333;
-    padding: 10px;
-}
-
-/* 数量选择器样式 - 简化版 */
-.count-options {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.count-option {
+[data-category="flags"] .emoji,
+.emoji-result img.emoji[src*="flag"],
+.emoji-container .emoji-result:has(img[src*="flag"]) {
+    font-size: 3.5rem;
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.count-option input {
-    position: absolute;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    cursor: pointer;
-}
-
-.count-option span {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #555;
-    transition: color 0.3s ease;
-}
-
-.count-option:hover {
-    background-color: #e0e0e0;
-    transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-}
-
-/* 简化选中状态样式 */
-.count-option input:checked ~ span {
-    color: white;
-}
-
-/* 直接修改父元素背景色 */
-.count-option input:checked {
-    background-color: #6c5ce7;
-}
-
-/* 关键修改: 直接在label上应用样式 */
-.count-option:has(input:checked) {
-    background-color: #6c5ce7;
-    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4);
-}
-
-/* 兼容性备选方案 */
-input[type="radio"]:checked + span {
-    color: white;
-}
-
-input[type="radio"]:checked + span::before {
-    display: none;
-}
-
-/* 确保单选框选中时整个父元素变色的JavaScript备选样式 */
-.count-option.selected {
-    background-color: #6c5ce7 !important;
-    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4) !important;
-}
-
-.count-option.selected span {
-    color: white !important;
-}
-
-/* 添加加载动画样式 */
-.emoji-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    width: 100%;
-}
-
-.emoji-loading:after {
-    content: "";
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #6c5ce7;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }

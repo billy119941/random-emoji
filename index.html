@@ -72,6 +72,7 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
+            padding: 10px;
         }
 
         .emoji-item-display {
@@ -177,17 +178,19 @@
             background-color: var(--primary-color);
         }
 
+        /* 移除可能导致多个元素同时高亮的伪元素 */
         .count-option input:checked + span::before {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            content: none;
+        }
+
+        /* 使用JavaScript添加类来控制样式 */
+        .count-option.selected {
             background-color: #6c5ce7;
-            z-index: -1;
-            top: 0;
-            left: 0;
             box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4);
+        }
+
+        .count-option.selected span {
+            color: white;
         }
 
         /* 复制提示增强 */
@@ -589,16 +592,35 @@
                 }, 100);
             });
 
-            // 初始化表情计数选择器
+            // 修改初始化表情计数选择器函数
             function initEmojiCountSelector() {
                 const countOptions = document.querySelectorAll('input[name="emoji-count"]');
                 
+                // 先清除所有选中状态的样式
+                function clearAllSelections() {
+                    document.querySelectorAll('.count-option').forEach(option => {
+                        option.classList.remove('selected');
+                    });
+                }
+                
+                // 初始化 - 确保默认选项有正确的视觉样式
+                clearAllSelections();
+                document.querySelector('input[name="emoji-count"]:checked')
+                    .closest('.count-option').classList.add('selected');
+                
                 countOptions.forEach(option => {
                     option.addEventListener('change', function() {
+                        // 当选择变化时，先清除所有选中状态
+                        clearAllSelections();
+                        
+                        // 为当前选中项添加选中样式
+                        this.closest('.count-option').classList.add('selected');
+                        
+                        // 更新选中数量并生成新表情
                         selectedEmojiCount = parseInt(this.value);
                         console.log("选择了生成", selectedEmojiCount, "个表情");
                         
-                        // 清除现有的表情，生成指定数量的表情
+                        // 生成指定数量的表情
                         generateMultipleEmojis();
                     });
                 });
@@ -683,6 +705,11 @@
                         const emojiResult = document.createElement('div');
                         emojiResult.className = 'emoji-result';
                         emojiResult.textContent = randomEmoji.emoji;
+                        
+                        // 为国旗表情添加特殊标记
+                        if (randomEmoji.category === 'flags') {
+                            emojiResult.setAttribute('data-category', 'flags');
+                        }
                         
                         // 创建名称元素
                         const emojiName = document.createElement('p');
