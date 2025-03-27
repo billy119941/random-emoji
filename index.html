@@ -306,11 +306,11 @@
                         <span data-i18n="options.count">生成个数: </span>
                         <div class="count-options">
                             <label class="count-option">
-                                <input type="radio" name="emoji-count" value="1">
+                                <input type="radio" name="emoji-count" value="1" checked>
                                 <span>1</span>
                             </label>
                             <label class="count-option">
-                                <input type="radio" name="emoji-count" value="2" checked>
+                                <input type="radio" name="emoji-count" value="2">
                                 <span>2</span>
                             </label>
                             <label class="count-option">
@@ -518,6 +518,7 @@
     <!-- JavaScript 文件 -->
     <script src="scripts/emoji-data.js"></script>
     <script src="scripts/i18n.js"></script>
+    <script src="scripts/twemoji-extension.js"></script>
     <script src="scripts/main.js"></script>
     <script>
         // 使用 Twemoji 显示 emoji
@@ -568,7 +569,7 @@
         // 多表情生成和复制功能
         (function() {
             // 全局变量
-            let selectedEmojiCount = 2; // 默认生成2个表情
+            let selectedEmojiCount = 1; // 默认生成1个表情
             let lastRandomEmojis = []; // 存储最后生成的表情列表
 
             // 页面加载完成后执行

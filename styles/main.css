@@ -295,22 +295,25 @@ ul {
 /* emoji容器统一大小样式 */
 .emoji-result {
     font-size: 3.5rem;
-    width: 5rem;         /* 固定宽度 */
-    height: 5rem;        /* 固定高度 */
-    margin: 0 auto 8px;  /* 水平居中并保持底部间距 */
+    width: 5rem;
+    height: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
+    margin: 0 auto 8px;
 }
 
-/* 控制Twemoji生成的图片大小 */
+/* Twemoji特定样式 */
 .emoji-result img.emoji {
-    width: 3.5rem !important;  /* 强制图片宽度 */
-    height: 3.5rem !important; /* 强制图片高度 */
-    max-width: none !important;
-    max-height: none !important;
+    width: 3.5rem !important;
+    height: 3.5rem !important;
     margin: 0 !important;
+}
+
+/* 标记Twemoji来源的emoji名称样式 */
+.emoji-name.twemoji-source {
+    font-style: italic;
+    color: #6c5ce7;
 }
 
 /* 确保emoji项目容器也保持一致 */
@@ -1077,4 +1080,28 @@ input[type="radio"]:checked + span::before {
 
 .count-option.selected span {
     color: white !important;
+}
+
+/* 添加加载动画样式 */
+.emoji-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+}
+
+.emoji-loading:after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #6c5ce7;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
