@@ -59,7 +59,10 @@ const translations = {
         'footer.shareOn': '分享至你的社交媒体',
         'footer.rights': '保留所有权利',
         'notifications.copied': '已复制到剪贴板',
-        'notifications.error': '复制失败'
+        'notifications.error': '复制失败',
+        'options.count': '生成个数: ',
+        'buttons.copyAll': '复制全部',
+        'notifications.allCopied': '所有表情已复制到剪贴板'
     },
     en: {
         'nav.home': 'Home',
@@ -119,13 +122,16 @@ const translations = {
         'footer.shareOn': 'Share on Social Media',
         'footer.rights': 'All Rights Reserved',
         'notifications.copied': 'Copied to clipboard',
-        'notifications.error': 'Copy failed'
+        'notifications.error': 'Copy failed',
+        'options.count': 'Number: ',
+        'buttons.copyAll': 'Copy All',
+        'notifications.allCopied': 'All emojis copied to clipboard'
     }
 };
 
 // 初始化语言
 function initLanguage() {
-    // 设置默认语言为英语
+    // 设置默认语言
     currentLanguage = 'en';
     
     // 更新语言选择器
@@ -192,9 +198,48 @@ function applyTranslations() {
             el.placeholder = translations[currentLanguage][key];
         }
     });
+    
+    // 调用检查函数（仅在调试模式下）
+    if (window.location.href.includes('debug=true')) {
+        checkTranslations();
+    }
 }
 
 // 获取翻译
 function getTranslation(key) {
     return translations[currentLanguage][key] || key;
 }
+
+// 在文件末尾添加一个调试函数，以便检查翻译是否正确应用
+function checkTranslations() {
+    console.log("检查翻译...");
+    console.log("当前语言:", currentLanguage);
+    
+    // 检查特定元素的翻译
+    const countLabel = document.querySelector('[data-i18n="options.count"]');
+    const copyAllBtn = document.querySelector('[data-i18n="buttons.copyAll"]');
+    
+    if (countLabel) {
+        console.log("options.count 元素内容:", countLabel.textContent);
+        console.log("options.count 应翻译为:", translations[currentLanguage]['options.count']);
+    } else {
+        console.log("找不到 options.count 元素");
+    }
+    
+    if (copyAllBtn) {
+        console.log("buttons.copyAll 元素内容:", copyAllBtn.textContent);
+        console.log("buttons.copyAll 应翻译为:", translations[currentLanguage]['buttons.copyAll']);
+    } else {
+        console.log("找不到 buttons.copyAll 元素");
+    }
+}
+
+// 在页面加载完成后确保应用翻译
+document.addEventListener('DOMContentLoaded', function() {
+    // ... 其他初始化代码 ...
+    
+    // 确保重新应用翻译，以防有些新元素在初始化后添加
+    setTimeout(function() {
+        applyTranslations();
+    }, 500);
+});
