@@ -56,8 +56,13 @@
         
         /* 调整 emoji 显示大小和样式 */
         #emoji-result {
-            font-size: 6rem;
+            font-size: 3.5rem;
             line-height: 1.2;
+            margin-bottom: 8px;
+            height: 4.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* 新增多表情显示样式 */
@@ -135,13 +140,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background-color: #f0f0f0;
+            border: 2px solid #ddd;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .count-option input {
@@ -151,26 +158,36 @@
         }
 
         .count-option span {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
+            color: #555;
         }
 
         .count-option:hover {
             background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
         }
 
         .count-option input:checked + span {
             color: white;
         }
 
+        .count-option input:checked {
+            background-color: var(--primary-color);
+        }
+
         .count-option input:checked + span::before {
             content: '';
             position: absolute;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background-color: #4CAF50;
+            background-color: #6c5ce7;
             z-index: -1;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4);
         }
 
         /* 复制提示增强 */

@@ -68,6 +68,27 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 设置当前年份
     document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // 确保选择器样式在所有浏览器中都能正常工作
+    document.querySelectorAll('.count-option input').forEach(input => {
+        // 初始检查
+        if(input.checked) {
+            input.closest('.count-option').classList.add('selected');
+        }
+        
+        // 监听变化
+        input.addEventListener('change', function() {
+            // 移除所有选中类
+            document.querySelectorAll('.count-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // 为当前选中项添加类
+            if(this.checked) {
+                this.closest('.count-option').classList.add('selected');
+            }
+        });
+    });
 });
 
 // 合并所有表情数据
